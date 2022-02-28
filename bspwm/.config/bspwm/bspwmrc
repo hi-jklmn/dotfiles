@@ -20,4 +20,4 @@ bspc rule -a Emacs state=tiled
 bspc rule -a feh state=tiled
 bspc rule -a zathura state=tiled
 
-feh --bg-fill ~/Pictures/ferns.jpg
+feh --bg-fill ~/Pictures/bg.jpg
