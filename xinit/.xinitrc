@@ -32,20 +32,17 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# Attempt to fix java
-export _JAVA_AWT_WM_NONREPARENTING=1
-export SXHKD_SHELL=dash
+if [ $(cat /etc/hostname) == "casper-3" ]; then
+	# Keyboard Configurations
+	/bin/sh ~/Scripts/keyconf.sh
 
-# Keyboard Configurations
-# setxkbmap -layout us,is -option caps:escape
-# xset r rate 200 35
-/bin/sh /home/jokulhaups/Scripts/keyconf.sh
-
-# Services/Programs I need running
-redshift &
-polybar -r example &
-#picom --experimental-backends --fade-delta=2 -CG &
-picom &
+	# Services/Programs I need running
+	redshift &
+	polybar -r example &
+	#picom --experimental-backends --fade-delta=2 -CG &
+	picom &
+fi
 
 # Good old chun... er bspwm
 exec bspwm
+
