@@ -3,7 +3,7 @@
 (load-theme 'wombat)
 
 ;; Set font settings
-(set-face-attribute 'default nil :font "Fira Code" :height 130)
+(set-face-attribute 'default nil :font "Fira Code" :height 120)
 
 ;; Remove startup message
 (setq inhibit-startup-message t)
@@ -14,6 +14,18 @@
 (tooltip-mode -1)
 (set-fringe-mode 0)
 (menu-bar-mode -1)
+
+;; Turn on line-numbers
+(column-number-mode)
+(global-display-line-numbers-mode t)
+
+;; Disable line numbers for some modes
+(defvar no-line-num-modes '(org-mode-hook
+			    term-mode-hook
+			    shell-mode-hook
+			    eshell-mode-hook))
+(dolist (mode no-line-num-modes)
+  (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
 ;;;; --PACKAGES-----------------------------------------------------------
 
@@ -41,10 +53,6 @@
 (use-package evil
   :config
   (evil-mode 1))
-
-;;;; --COMMAND-LOG-MODE---------------------------------------------------
-
-(use-package command-log-mode)
 
 ;;;; --IVY----------------------------------------------------------------
 
@@ -74,6 +82,18 @@
   :ensure t
   :init (doom-modeline-mode 1))
 
+;;;; --RAINBOW-DELIMITERS-------------------------------------------------
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+;;;; --WHICH-KEY----------------------------------------------------------
+
+(use-package which-key
+  :init (which-key-mode)
+  :diminish which-key-mode
+  :config (setq which-key-idle-delay 0.2))
+
 ;;;; --EMACS-GENERATED----------------------------------------------------
 
 (custom-set-variables
@@ -81,7 +101,8 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(package-selected-packages '(doom-modeline use-package evil counsel command-log-mode)))
+ '(package-selected-packages
+   '(which-key rainbow-delimiters doom-modeline use-package evil counsel command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
