@@ -23,11 +23,3 @@ alias fish_config="vim ~/.config/fish/config.fish"
 alias sxhkd_config="vim ~/.config/sxhkd/sxhkdrc"
 alias bspwm_config="vim ~/.config/bspwm/bspwmrc"
 
-function ssh_whale
-  ssh_tmux jokulhaups@jokulhaups.is
-end
-
-function ssh_tmux
-  ssh -t $argv "tmux attach || tmux new"
-end
-
