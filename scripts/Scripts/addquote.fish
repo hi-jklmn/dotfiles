@@ -1,9 +1,7 @@
 #!/usr/bin/fish
 
-set QUOTES_FILE ~/Miscellaneous/quotes.yaml
-
 if test ! -n "$QUOTES_FILE"
-    set QUOTES_FILE ~/Miscellaneous/quotes.yaml
+    set QUOTES_FILE ~/.quotes.yaml
 end
 
 set temp /tmp/newquote

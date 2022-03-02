@@ -1,6 +1,6 @@
 #!/usr/bin/fish
 
-set FILE ~/Miscellaneous/quotes.yaml
+set FILE ~/.quotes.yaml
 set TEMP /tmp/quotes.json
 
 yq -o=json . $FILE > $TEMP
