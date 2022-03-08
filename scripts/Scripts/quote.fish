@@ -6,7 +6,7 @@ set TEMP /tmp/quotes.json
 yq -o=json . $FILE > $TEMP
 
 set LENGTH (cat $TEMP | jshon -e quotes -l)
-set QUOTE  (cat $TEMP | jshon -e quotes -e (printf "(%d %% %d)\n" (date +%N) $LENGTH 2> /dev/null | bc))
+set QUOTE  (cat $TEMP | jshon -e quotes -e (math (date +%N) % $LENGTH))
 
 echo " "
 echo $QUOTE | jshon -e quote -u | fold -w 80 -s - | awk '{ print "\t" $0 }'
