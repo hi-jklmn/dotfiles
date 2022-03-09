@@ -28,7 +28,14 @@
 ;;;; --IVY----------------------------------------------------------------
 
 (use-package swiper)
-(use-package counsel)
+(use-package counsel
+  :bind (("M-x" . counsel-M-x)
+	 ("C-x b" . counsel-ibuffer)
+	 ("C-x C-f" . counsel-find-file)
+	 :map minibuffer-local-map
+	 ("C-r" . counsel-minibuffer-history))
+  :config (setq ivy-initial-inputs-alist nil)) ;; Delete ^ character from searches
+
 (use-package ivy
   :diminish
   :bind (("C-s" . swiper)
@@ -46,6 +53,9 @@
 	 ("C-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
+
+(use-package ivy-rich
+  :init (ivy-rich-mode 1))
 
 ;;;; --DOOM-MODELINE------------------------------------------------------
 
@@ -111,7 +121,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(which-key rainbow-delimiters doom-modeline use-package evil counsel command-log-mode)))
+   '(ivy-rich which-key rainbow-delimiters doom-modeline use-package evil counsel command-log-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

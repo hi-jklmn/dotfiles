@@ -112,8 +112,11 @@ call plug#end()
 lua << EOF
 require("material").setup {
     high_visibility = {
-        darker = true
-    }
+        darker = true,
+    },
+    disable = {
+        background = true,
+    },
 }
 
 require("which-key").setup { }
