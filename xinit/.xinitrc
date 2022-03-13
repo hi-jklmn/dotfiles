@@ -36,8 +36,13 @@ if [ $(cat /etc/hostname) == "casper-3" ]; then
 	# Services/Programs I need running
 	redshift &
 	polybar -r example &
+
 	#picom --experimental-backends --fade-delta=2 -CG &
 	picom &
+fi
+
+if [ $(cat /etc/hostname) == "balthazar-2" ]; then
+    picom &
 fi
 
 # Keyboard Configurations
