@@ -38,7 +38,7 @@ if [ $(cat /etc/hostname) == "casper-3" ]; then
 	picom &
 fi
 
-if [ $(cat /etc/hostname) == "balthazar-2" ]; then
+if [ $(cat /etc/hostname) == "balthasar-2" ]; then
 	polybar -r &
     picom &
 fi
