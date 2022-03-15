@@ -59,6 +59,8 @@
 
 ;;;; --DOOM-MODELINE------------------------------------------------------
 
+(use-package all-the-icons)
+
 (use-package doom-modeline
   :ensure t
   :init (doom-modeline-mode 1))
@@ -81,13 +83,18 @@
 
 ;;;; --VISUAL-------------------------------------------------------------
 
-(load-theme 'wombat)
+;; Need to find a bit better of a theme
+(use-package doom-themes
+  :init (load-theme 'doom-homage-black t))
 
 ;; Set font settings
 (set-face-attribute
  'default nil
  :font "Fira Code"
- :height (if (string= system-name "balthazar-2") 100 120))
+ :height (cond
+ 	  ((string= system-name "balthazar-2") 100)
+ 	  ((string= system-name "casper-3") 110)
+ 	  (t 120)))
 
 ;; Remove startup message
 (setq inhibit-startup-message t)
@@ -111,20 +118,13 @@
 (dolist (mode no-line-num-modes)
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+;;;; --FUNCTIONAL---------------------------------------------------------
 
+;; Move backup tilde files ("example.txt~") to a special folder
+(setq backup-directory-alist `(("." . "~/.emacs.bak")))
 
 ;;;; --EMACS-GENERATED----------------------------------------------------
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(ivy-rich which-key rainbow-delimiters doom-modeline use-package evil counsel command-log-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+(setq custom-file "~/.emacs.d/custom.el")
+(when (file-exists-p custom-file)
+  (load custom-file))
