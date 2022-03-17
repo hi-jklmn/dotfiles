@@ -33,15 +33,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 if [ $(cat /etc/hostname) == "casper-3" ]; then
-	# Services/Programs I need running
 	redshift &
-	polybar -r example &
-
-	#picom --experimental-backends --fade-delta=2 -CG &
+	polybar -r &
 	picom &
 fi
 
-if [ $(cat /etc/hostname) == "balthazar-2" ]; then
+if [ $(cat /etc/hostname) == "balthasar-2" ]; then
+	polybar -r &
     picom &
 fi
 

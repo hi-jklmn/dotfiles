@@ -121,7 +121,7 @@
  'default nil
  :font "Fira Code"
  :height (cond
- 	  ((string= system-name "balthazar-2") 100)
+ 	  ((string= system-name "balthasar-2") 100)
  	  ((string= system-name "casper-3") 110)
  	  (t 120)))
 
