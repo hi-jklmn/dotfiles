@@ -1,4 +1,4 @@
-set shell=/usr/bin/dash     " set posix compliant shell
+set shell=/usr/bin/fish
 
 " Install vim-plug if not found
 if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
@@ -107,6 +107,10 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     " Need I say more?
     Plug 'rust-lang/rust.vim'
+
+    " Git
+    Plug 'tpope/vim-fugitive'
+
 call plug#end()
 
 lua << EOF
