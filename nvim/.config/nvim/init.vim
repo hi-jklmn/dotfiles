@@ -51,7 +51,7 @@ ca w!! w !sudo tee %
 " Split management
 nnoremap <leader>w- :split<cr>
 nnoremap <leader>w/ :vsplit<cr>
-nnoremap <leader>wx :q<cr>
+nnoremap <leader>wd :q<cr>
 nnoremap <leader>wm :only<cr>
 
 " Split navigation
@@ -59,6 +59,23 @@ nnoremap <leader>wh :wincmd h<cr>
 nnoremap <leader>wj :wincmd j<cr>
 nnoremap <leader>wk :wincmd k<cr>
 nnoremap <leader>wl :wincmd l<cr>
+
+" Buffer navigation
+nnoremap <leader>bj :bn<cr>
+nnoremap <leader>bk :bp<cr>
+nnoremap <leader>bd :bd<cr>
+nnoremap <leader>bl :ls<cr>
+nnoremap <leader>b1 :1b<cr>
+nnoremap <leader>b1 :1b<cr>
+nnoremap <leader>b2 :2b<cr>
+nnoremap <leader>b3 :3b<cr>
+nnoremap <leader>b4 :4b<cr>
+nnoremap <leader>b5 :5b<cr>
+nnoremap <leader>b6 :6b<cr>
+nnoremap <leader>b7 :7b<cr>
+nnoremap <leader>b8 :8b<cr>
+nnoremap <leader>b9 :9b<cr>
+nnoremap <leader>b0 :10b<cr>
 
 " Line moving
 nnoremap <A-j> :m .+1<CR>==
