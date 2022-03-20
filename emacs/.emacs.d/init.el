@@ -25,6 +25,35 @@
   :config
   (evil-mode 1))
 
+(define-key evil-normal-state-map (kbd "SPC") nil)
+
+(evil-set-leader 'normal (kbd "SPC"))
+
+(defun leader (keys) (kbd (concat "<leader> " keys)))
+
+(evil-define-key '(normal visual) 'global
+  ;; General
+  (leader "SPC") 'counsel-M-x
+  ;; Help
+  (leader "h") 'help
+  ;; Buffers
+  (leader "b b") 'counsel-ibuffer
+  ;; Files
+  (leader "f f") 'counsel-find-file
+  ;; Eval
+  (leader "e b") 'eval-buffer
+  (leader "e r") 'eval-region
+  (leader "e s") 'eval-last-sexp
+  ;; Window
+  (leader "w d") 'evil-window-delete
+  (leader "w /") 'evil-window-vsplit
+  (leader "w -") 'evil-window-split
+  (leader "w h") 'evil-window-left
+  (leader "w j") 'evil-window-down
+  (leader "w k") 'evil-window-up
+  (leader "w l") 'evil-window-right)
+
+(print "hello, world")
 ;;;; --IVY----------------------------------------------------------------
 
 (use-package swiper)
@@ -75,7 +104,7 @@
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
-  :config (setq which-key-idle-delay 0.2))
+  :config (setq which-key-idle-delay 0.5))
 
 ;;;; --F------------------------------------------------------------------
 
