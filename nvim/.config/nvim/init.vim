@@ -113,8 +113,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Treesitter
     Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
-    " org-mode, wow!
-    Plug 'vhyrro/neorg' | Plug 'nvim-lua/plenary.nvim'
+    " " org-mode, wow!
+    " Plug 'vhyrro/neorg' | Plug 'nvim-lua/plenary.nvim'
 
     " Visual yanking
     Plug 'machakann/vim-highlightedyank'
@@ -154,26 +154,6 @@ parser_configs.norg = {
 
 require('nvim-treesitter.configs').setup {
     ensure_installed = { "norg", "haskell", "cpp", "c", "javascript"},
-}
-
-require('neorg').setup {
-    -- Tell Neorg what modules to load
-    load = {
-        ["core.defaults"] = {}, -- Load all the default modules
-        ["core.keybinds"] = {
-            config = {
-                default_keybinds = true
-            }
-        },
-        ["core.norg.concealer"] = {}, -- Allows for use of icons
-        ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = {
-                workspaces = {
-                    my_workspace = "~/neorg"
-                }
-            }
-        }
-    },
 }
 EOF
 
