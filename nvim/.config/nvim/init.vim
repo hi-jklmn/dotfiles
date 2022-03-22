@@ -131,6 +131,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Git
     Plug 'tpope/vim-fugitive'
 
+    " clang-format
+    Plug 'rhysd/vim-clang-format'
+
 call plug#end()
 
 lua << EOF
