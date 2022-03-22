@@ -83,6 +83,11 @@ nnoremap <leader>b8 :8b<cr>
 nnoremap <leader>b9 :9b<cr>
 nnoremap <leader>b0 :10b<cr>
 
+" vim-plug
+nnoremap <leader>pi :PlugInstall --sync | q<cr>
+nnoremap <leader>pu :PlugUpdate --sync | q<cr>
+nnoremap <leader>p? :help vim-plug<cr>
+
 " Git (fugitive)
 nnoremap <leader>gg :Git<cr>
 nnoremap <leader>gc :Git commit<cr>
