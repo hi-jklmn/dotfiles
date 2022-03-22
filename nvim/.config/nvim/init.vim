@@ -45,6 +45,9 @@ set makeprg=./build.sh
 filetype plugin indent on   " auto-indents based on file type
 syntax on           " turn on syntax highlights
 
+" Force help windows to open in vertical split
+autocmd BufWinEnter * if &filetype == 'help' | wincmd L | endif
+
 " Use w!! to write into a file without permissions
 ca w!! w !sudo tee %
 
