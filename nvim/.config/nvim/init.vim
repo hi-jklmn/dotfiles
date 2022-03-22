@@ -80,6 +80,13 @@ nnoremap <leader>b8 :8b<cr>
 nnoremap <leader>b9 :9b<cr>
 nnoremap <leader>b0 :10b<cr>
 
+" Git (fugitive)
+nnoremap <leader>gg :Git<cr>
+nnoremap <leader>gc :Git commit<cr>
+nnoremap <leader>gd :Git diff<cr>
+nnoremap <leader>ga :GWrite<cr>
+nnoremap <leader>g? :help fugitive<cr>
+
 " Line moving
 nnoremap <A-j> :m .+1<CR>==
 nnoremap <A-k> :m .-2<CR>==
