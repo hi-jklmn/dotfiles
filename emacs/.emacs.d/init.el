@@ -31,6 +31,16 @@
 
 (defun leader (keys) (kbd (concat "<leader> " keys)))
 
+(defun vsplit-and-enter ()
+  (interactive)
+  (evil-window-vsplit)
+  (evil-window-right 1))
+
+(defun split-and-enter ()
+  (interactive)
+  (evil-window-split)
+  (evil-window-down 1))
+
 (evil-define-key '(normal visual) 'global
   ;; General
   (leader "SPC") 'counsel-M-x
@@ -38,22 +48,28 @@
   (leader "h") 'help
   ;; Buffers
   (leader "b b") 'counsel-ibuffer
+  (leader "b n") 'evil-next-buffer
   ;; Files
   (leader "f f") 'counsel-find-file
   ;; Eval
   (leader "e b") 'eval-buffer
   (leader "e r") 'eval-region
   (leader "e s") 'eval-last-sexp
-  ;; Window
+  ;; Window creation and deletion
   (leader "w d") 'evil-window-delete
-  (leader "w /") 'evil-window-vsplit
-  (leader "w -") 'evil-window-split
+  (leader "w /") 'vsplit-and-enter
+  (leader "w -") 'split-and-enter
+  ;; Move cursor between windows
   (leader "w h") 'evil-window-left
   (leader "w j") 'evil-window-down
   (leader "w k") 'evil-window-up
-  (leader "w l") 'evil-window-right)
+  (leader "w l") 'evil-window-right
+  ;; Move windows
+  (leader "w H") 'windmove-swap-states-left
+  (leader "w J") 'windmove-swap-states-down
+  (leader "w K") 'windmove-swap-states-up
+  (leader "w L") 'windmove-swap-states-right)
 
-(print "hello, world")
 ;;;; --IVY----------------------------------------------------------------
 
 (use-package swiper)
