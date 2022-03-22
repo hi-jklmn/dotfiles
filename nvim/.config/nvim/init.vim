@@ -136,6 +136,13 @@ call plug#begin('~/.local/share/nvim/plugged')
 
 call plug#end()
 
+" Automatically install missing plugins
+" https://github.com/junegunn/vim-plug/wiki/extra#automatically-install-missing-plugins-on-startup
+autocmd VimEnter *
+    \   if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+    \|      PlugInstall --sync | q
+    \|  endif
+
 lua << EOF
 require("material").setup {
     high_visibility = {
