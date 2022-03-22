@@ -49,10 +49,13 @@ syntax on           " turn on syntax highlights
 ca w!! w !sudo tee %
 
 " Split management
-nnoremap <leader>w- :split<cr>
-nnoremap <leader>w/ :vsplit<cr>
+nnoremap <leader>w- :split<cr>:wincmd j<cr>
+nnoremap <leader>w/ :vsplit<cr>:wincmd l<cr>
 nnoremap <leader>wd :q<cr>
 nnoremap <leader>wm :only<cr>
+
+nnoremap <leader>t- :split<cr>:wincmd j<cr>:terminal<cr>A
+nnoremap <leader>t/ :vsplit<cr>:wincmd l<cr>:terminal<cr>A
 
 " Split navigation
 nnoremap <leader>wh :wincmd h<cr>
