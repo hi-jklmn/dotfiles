@@ -103,6 +103,10 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
+" CHADTree
+nnoremap <leader>ff :CHADopen<cr>
+nnoremap <leader>f? :CHADhelp<cr>
+
 call plug#begin('~/.local/share/nvim/plugged')
     " Jellybeans Colorscheme 
     " Plug 'nanotech/jellybeans.vim'
@@ -149,6 +153,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     " clang-format
     Plug 'rhysd/vim-clang-format'
 
+    " CHADTree
+    Plug 'ms-jpq/chadtree'
 call plug#end()
 
 " Automatically install missing plugins
