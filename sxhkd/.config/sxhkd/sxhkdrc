@@ -51,7 +51,6 @@ super + shift + alt + {Up, Down}
 	pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%
 shift + {F2,F3}
  	amixer set Master 5%{-,+}
-
 super + {Up, Down}
 	pactl set-sink-volume @DEFAULT_SINK@ {+,-}5%
 
