@@ -91,6 +91,7 @@ nnoremap <leader>p? :help vim-plug<cr>
 " Git (fugitive)
 nnoremap <leader>gg :Git<cr>
 nnoremap <leader>gc :Git commit<cr>
+nnoremap <leader>gp :Git push<cr>
 nnoremap <leader>gd :Git diff<cr>
 nnoremap <leader>ga :GWrite<cr>
 nnoremap <leader>g? :help fugitive<cr>
