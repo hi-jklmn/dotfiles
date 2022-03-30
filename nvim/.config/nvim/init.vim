@@ -48,6 +48,14 @@ syntax on           " turn on syntax highlights
 " Force help windows to open in vertical split
 autocmd BufWinEnter * if &filetype == 'help' | wincmd L | endif
 
+" Brackets ()()()()
+" can look into doing ftplugins later
+autocmd Filetype c inoremap ( ()<Esc>i
+autocmd Filetype c inoremap (<cr> (<cr><Esc>O
+autocmd Filetype c inoremap { {}<Esc>i
+autocmd Filetype c inoremap {<cr> {<cr>}<Esc>O
+autocmd Filetype c inoremap [ []<Esc>i
+
 " Use w!! to write into a file without permissions
 ca w!! w !sudo tee %
 
