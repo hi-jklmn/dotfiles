@@ -120,11 +120,8 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Jellybeans Colorscheme 
     " Plug 'nanotech/jellybeans.vim'
     
-    " Material Colorscheme 
-    Plug 'marko-cerovac/material.nvim'
-
     " Icons for statusline
-    " Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'kyazdani42/nvim-web-devicons'
 
     " Elixir integration
     Plug 'elixir-editors/vim-elixir'
@@ -164,6 +161,15 @@ call plug#begin('~/.local/share/nvim/plugged')
 
     " CHADTree
     Plug 'ms-jpq/chadtree'
+
+    " Lualine
+    Plug 'nvim-lualine/lualine.nvim'
+
+    " Buffer-line
+    Plug 'akinsho/bufferline.nvim'
+
+    " Material Colorscheme 
+    Plug 'marko-cerovac/material.nvim'
 call plug#end()
 
 " Automatically install missing plugins
@@ -173,16 +179,9 @@ autocmd VimEnter *
     \|      PlugInstall --sync | q
     \|  endif
 
-lua << EOF
-require("material").setup {
-    high_visibility = {
-        darker = true,
-    },
-    disable = {
-        background = true,
-    },
-}
+set termguicolors
 
+lua << EOF
 require("which-key").setup { }
 
 local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
@@ -198,6 +197,23 @@ parser_configs.norg = {
 require('nvim-treesitter.configs').setup {
     ensure_installed = { "norg", "haskell", "cpp", "c", "javascript"},
 }
+
+require('material').setup {
+    high_visibility = {
+        darker = true,
+    },
+    disable = {
+        background = true,
+    },
+}
+
+require('lualine').setup {
+    options = { 
+        theme = 'material-stealth', 
+    }
+}
+
+require('bufferline').setup{}
 EOF
 
 " Set colorscheme
