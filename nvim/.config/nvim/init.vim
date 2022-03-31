@@ -156,6 +156,9 @@ call plug#begin('~/.local/share/nvim/plugged')
     " Git
     Plug 'tpope/vim-fugitive'
 
+    " Git gutter
+    Plug 'airblade/vim-gitgutter'
+
     " clang-format
     Plug 'rhysd/vim-clang-format'
 
