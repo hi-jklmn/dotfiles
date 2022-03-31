@@ -3,17 +3,24 @@
 set FILE ~/.quotes.yaml
 set TEMP /tmp/quotes.json
 
-yq -o=json . $FILE > $TEMP
+set TIME_FILE_MODIFIED (stat -c %Z $FILE)
 
-set LENGTH (cat $TEMP | jshon -e quotes -l)
+# save ourselves a little time
+if test ! -e $TEMP
+    or test $TIME_FILE_MODIFIED -lt (stat -c %W $TEMP)
+    yq -o=json $FILE > $TEMP
+    jshon -I -F $TEMP -n (jshon -e quotes -l <$TEMP) -i length
+end
+
+set LENGTH (jshon -e length -u <$TEMP)
 
 if test (count $argv) -eq 1
-    ; and isnumber.fish $argv[1]
-    ; and test $argv[1] -lt $LENGTH
-    ; and test $argv[1] -ge 0
+    and isnumber.fish $argv[1]
+    and test $argv[1] -lt $LENGTH
+    and test $argv[1] -ge 0
     set INDEX $argv[1]
 else
-    set INDEX  (math (date +%N) % $LENGTH)
+    set INDEX (math (date +%N) % $LENGTH)
 end
 
 set QUOTE  (cat $TEMP | jshon -e quotes -e $INDEX)
