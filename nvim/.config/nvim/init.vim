@@ -101,7 +101,7 @@ nnoremap <leader>gg :Git<cr>
 nnoremap <leader>gc :Git commit<cr>
 nnoremap <leader>gp :Git push<cr>
 nnoremap <leader>gd :Git diff<cr>
-nnoremap <leader>ga :GWrite<cr>
+nnoremap <leader>ga :Gwrite<cr>
 nnoremap <leader>g? :help fugitive<cr>
 
 " Line moving
