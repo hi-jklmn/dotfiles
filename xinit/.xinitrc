@@ -46,6 +46,8 @@ fi
 # Keyboard Configurations
 /bin/sh ~/Scripts/keyconf.sh
 
+eval `ssh-agent -s`
+
 # Good old chun... er bspwm
 exec bspwm
 
