@@ -74,6 +74,12 @@ nnoremap <leader>wj :wincmd j<cr>
 nnoremap <leader>wk :wincmd k<cr>
 nnoremap <leader>wl :wincmd l<cr>
 
+" Move splits (experimental)
+nnoremap <leader>wH mL:wincmd h<cr>mH'L:wincmd l<cr>'H:wincmd h<cr>
+nnoremap <leader>wJ mK:wincmd j<cr>mJ'K:wincmd k<cr>'J:wincmd j<cr>
+nnoremap <leader>wK mJ:wincmd k<cr>mK'J:wincmd j<cr>'K:wincmd k<cr>
+nnoremap <leader>wL mH:wincmd l<cr>mL'H:wincmd h<cr>'L:wincmd l<cr>
+
 " Buffer navigation
 nnoremap <leader>bj :bn<cr>
 nnoremap <leader>bk :bp<cr>
