@@ -108,9 +108,13 @@ super + {_,shift + }{h,j,k,l}
 super + {p,b,comma,period}
 	bspc node -f @{parent,brother,first,second}
 
-# focus the next/previous desktop in the current monitor
+# focus the occupied next/previous desktop in the current monitor
 super + bracket{left,right}
 	bspc desktop -f {prev,next}.occupied
+
+# send window to the next/previous desktop in the current monitor
+super + brace{left,right}
+	bspc node -d {prev,next}.occupied --follow
 
 # focus the last node/desktop
 super + {grave,Tab}
