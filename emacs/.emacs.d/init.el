@@ -3,6 +3,7 @@
 ;; Set up package.el to work with MELPA
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://elpa.gnu.org/packages/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
 (unless package-archive-contents
@@ -125,6 +126,10 @@
 ;;;; --F------------------------------------------------------------------
 
 (use-package f)
+
+;;;; --ORG-MODE-----------------------------------------------------------
+
+(use-package org)
 
 ;;;; --VISUAL-------------------------------------------------------------
 
