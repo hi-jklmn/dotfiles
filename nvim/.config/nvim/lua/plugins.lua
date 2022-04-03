@@ -1,3 +1,12 @@
+-- Add autocommand to recompile when plugins.lua is written
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+  augroup end
+]])
+
+-- Automatically install packer if missing
 local fn = vim.fn
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
@@ -8,6 +17,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function(use)
+    -- Make packer responsible for itself
+    use 'wbthomason/packer.nvim'
     -- Icons for statusline
     use 'kyazdani42/nvim-web-devicons'
     -- Elixir integration
@@ -21,7 +32,33 @@ return require('packer').startup(function(use)
     -- Let's get keybinding
     use 'folke/which-key.nvim'
     -- Treesitter
-    use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use { 
+        'nvim-treesitter/nvim-treesitter',
+        run = ':TSUpdate',
+        config = function() 
+            local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+            -- Optional neorg parsers
+            parser_configs.norg_meta = {
+                install_info = {
+                    url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
+                    files = { "src/parser.c" },
+                    branch = "main"
+                },
+            }
+            parser_configs.norg_table = {
+                install_info = {
+                    url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
+                    files = { "src/parser.c" },
+                    branch = "main"
+                },
+            }
+            require('nvim-treesitter.configs').setup {
+                ensure_installed = "maintained",
+                sync_install = "false",
+                highlight = { enable = true },
+            }
+        end
+    }
     -- Visual yanking
     use 'machakann/vim-highlightedyank'
     -- Token matching extension
@@ -74,7 +111,14 @@ return require('packer').startup(function(use)
     use {
         "nvim-neorg/neorg",
         config = function()
-            require('neorg').setup {}
+            require('neorg').setup {
+                logger = {
+                    level = "trace"
+                },
+                load = {
+                    ["core.defaults"] = {},
+                }
+            }
         end,
         requires = "nvim-lua/plenary.nvim",
     }
