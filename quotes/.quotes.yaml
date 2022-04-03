@@ -54,3 +54,9 @@ quotes:
 
   - origin: 'Lewis Carroll, Jabberwocky'
     quote:  "\'Twas brillig, and the slithy toves\n    Did gyre and gimble in the wabe..."
+
+  - origin: "Nathan Poe (of Poe\'s Law), Christian Forums"
+    quote:  'Good thing you included the winky. Otherwise people might think you are serious.'
+
+  - origin: "Hofstadter\'s Law"
+    quote:  "It always takes longer than you expect, even when you take into account Hofstadter's Law."
