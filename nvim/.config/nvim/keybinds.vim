@@ -7,11 +7,13 @@ tnoremap <Esc> <C-\><C-n>
 " Set <SPACE> to leader
 let mapleader = " "
 
+""" --- OUTDATED -----------------------------------
 """ easy configuration
 " edit init.vim
 nnoremap <leader>ev :exe 'edit '.stdpath('config').'/init.vim'<cr>
 " source init.vim
 nnoremap <leader>sv :exe 'source '.stdpath('config').'/init.vim'<cr>
+""" --- /OUTDATED ----------------------------------
 
 " Split management
 nnoremap <leader>w- :split<cr>:wincmd j<cr>
