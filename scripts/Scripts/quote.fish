@@ -3,11 +3,9 @@
 set FILE ~/.quotes.yaml
 set TEMP /tmp/quotes.json
 
-set TIME_FILE_MODIFIED (stat -c %Y $FILE)
-
 # save ourselves a little time
 if test ! -e $TEMP
-    or test $TIME_FILE_MODIFIED -lt (stat -c %Y $TEMP)
+    or test (stat -c %Y $FILE) -lt (stat -c %Y $TEMP)
     yq -o=json $FILE > $TEMP
     jshon -I -F $TEMP -n (jshon -e quotes -l <$TEMP) -i length
 end
