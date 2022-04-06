@@ -112,9 +112,6 @@ return require('packer').startup(function(use)
         "nvim-neorg/neorg",
         config = function()
             require('neorg').setup {
-                logger = {
-                    level = "trace"
-                },
                 load = {
                     ["core.defaults"] = {},
                 }
