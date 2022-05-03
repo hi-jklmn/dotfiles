@@ -30,11 +30,17 @@ return require('packer').startup(function(use)
     -- Info docs in vim
     use 'HiPhish/info.vim'
     -- Let's get keybinding
-    use 'folke/which-key.nvim'
+    use {
+        'folke/which-key.nvim',
+        config = function()
+            require('which-key').setup {}
+        end
+    }
     -- Treesitter
-    use { 
+    use {
         'nvim-treesitter/nvim-treesitter',
         run = ':TSUpdate',
+        before = "neorg",
         config = function() 
             local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
             -- Optional neorg parsers
@@ -57,6 +63,9 @@ return require('packer').startup(function(use)
                 sync_install = "false",
                 highlight = { enable = true },
             }
+
+            vim.cmd('set foldmethod=expr')
+            vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
         end
     }
     -- Visual yanking
@@ -114,6 +123,15 @@ return require('packer').startup(function(use)
             require('neorg').setup {
                 load = {
                     ["core.defaults"] = {},
+                    -- Workspace manager
+                    ["core.norg.dirman"] = { config = { 
+                            workspaces = { 
+                                neorg = "~/neorg", 
+                            }}},
+                    -- Element hiding (Fancy bullet points)
+                    ["core.norg.concealer"] = {},
+                    -- Getting things done
+                    ["core.gtd.base"] = {},
                 }
             }
         end,

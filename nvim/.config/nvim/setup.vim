@@ -19,6 +19,8 @@ set mouse=a                 " allow mouse to resize splits
 set shiftwidth=4            " Set tab length to 4
 set tabstop=4               "
 set expandtab               " Insert spaces instead of tabs
+set nofoldenable            " Don't automatically fold
+set foldlevel=99
 
 filetype plugin indent on   " auto-indents based on file type
 syntax on           " turn on syntax highlights
