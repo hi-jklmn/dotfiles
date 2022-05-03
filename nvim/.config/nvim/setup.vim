@@ -31,10 +31,16 @@ autocmd BufWinEnter * if &filetype == 'help' | wincmd L | endif
 " Brackets ()()()()
 " can look into doing ftplugins later
 autocmd Filetype c inoremap ( ()<Esc>i
+autocmd Filetype c inoremap () ()
 autocmd Filetype c inoremap (<cr> (<cr><Esc>O
 autocmd Filetype c inoremap { {}<Esc>i
 autocmd Filetype c inoremap {<cr> {<cr>}<Esc>O
 autocmd Filetype c inoremap [ []<Esc>i
+
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
 
 " Use w!! to write into a file without permissions
 ca w!! w !sudo tee %
