@@ -7,3 +7,5 @@ export EDITOR="nvim"
 # Use neovim as man page viewer
 export MANPAGER="nvim +Man!"
 export MANWIDTH=80
+
+export FZF_DEFAULT_COMMAND="fd --hidden --exclude '.git'"
