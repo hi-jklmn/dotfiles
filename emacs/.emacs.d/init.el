@@ -1,4 +1,4 @@
-;;;; --PACKAGES-----------------------------------------------------------
+;;;; --PACKAGES-----------------------------------------------------------------
 
 ;; Set up package.el to work with MELPA
 (require 'package)
@@ -12,25 +12,54 @@
 (unless (package-installed-p 'use-package)
     (package-install 'use-package))
 
-;;;; --USE-PACKAGE--------------------------------------------------------
+;;;; --USE-PACKAGE--------------------------------------------------------------
 
-(require 'use-package)
+(eval-when-compile (require 'use-package))
 (setq use-package-always-ensure t)
 
-;;;; --EVIL--(and general vim stuff)--------------------------------------
+;;;; --GENERAL-EL---------------------------------------------------------------
+
+(use-package general
+  :config
+  (general-evil-setup t)
+  (general-auto-unbind-keys)
+  (general-create-definer jklmn/leader-keys
+			  :keymaps '(normal insert visual emacs)
+			  :prefix "SPC"
+			  :global-prefix "C-SPC"))
+
+;;;; --EVIL--(and miscellaneous vim stuff)--------------------------------------
 
 ; Make ESC quit prompts
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (use-package evil
+  :init
+  (setq evil-want-integration t)
+  (setq evil-want-keybinding nil) ;; Maybe I do want this :thinking_emoji:
+  (setq evil-want-C-u-scroll t)
+  ;; This fixes TAB in org-mode in terminal
+  ;; https://jeffkreeftmeijer.com/emacs-evil-org-tab/ 
+  (setq evil-want-C-i-jump nil)
   :config
-  (evil-mode 1))
+  (evil-mode 1)
+  (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+  ;; Set C-h to work like backspace (works well if you remap caps to Ctrl)
+  ; (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
+  ;; When lines wrap on edge of screen, j/k move to next "visual" line, not actual
+  ; (evil-global-set-key 'motion "j" 'evil-next-visual-line)
+  ; (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
+  ;; Set normal mode as the default state for a couple of modes
+  (evil-set-initial-state 'message-buffer-mode 'normal)
+  (evil-set-initial-state 'dashboard-mode 'normal))
 
-(define-key evil-normal-state-map (kbd "SPC") nil)
+; (define-key evil-normal-state-map (kbd "SPC") nil)
+; (define-key evil-visual-state-map (kbd "SPC") nil)
+; 
+; (evil-set-leader 'normal (kbd "SPC"))
+; (evil-set-leader 'visual (kbd "SPC"))
 
-(evil-set-leader 'normal (kbd "SPC"))
-
-(defun leader (keys) (kbd (concat "<leader> " keys)))
+; (defun leader (keys) (kbd (concat "<leader> " keys)))
 
 (defun vsplit-and-enter ()
   (interactive)
@@ -42,36 +71,61 @@
   (evil-window-split)
   (evil-window-down 1))
 
-(evil-define-key '(normal visual) 'global
-  ;; General
-  (leader "SPC") 'counsel-M-x
+(jklmn/leader-keys
+  ;; Miscellaneous
+  "SPC" 'counsel-M-x
   ;; Help
-  (leader "h") 'help
+  "h" 'help
   ;; Buffers
-  (leader "b b") 'counsel-ibuffer
-  (leader "b n") 'evil-next-buffer
+  "b b" 'counsel-switch-buffer
+  "b j" 'evil-next-buffer
+  "b k" 'evil-prev-buffer
+  "b d" 'kill-buffer
   ;; Files
-  (leader "f f") 'counsel-find-file
+  "f f" 'counsel-find-file
   ;; Eval
-  (leader "e b") 'eval-buffer
-  (leader "e r") 'eval-region
-  (leader "e s") 'eval-last-sexp
+  "e b" 'eval-buffer
+  "e r" 'eval-region
+  "e s" 'eval-last-sexp
   ;; Window creation and deletion
-  (leader "w d") 'evil-window-delete
-  (leader "w /") 'vsplit-and-enter
-  (leader "w -") 'split-and-enter
+  "w d" 'evil-window-delete
+  "w /" 'vsplit-and-enter
+  "w -" 'split-and-enter
+  "w m" 'delete-other-windows
   ;; Move cursor between windows
-  (leader "w h") 'evil-window-left
-  (leader "w j") 'evil-window-down
-  (leader "w k") 'evil-window-up
-  (leader "w l") 'evil-window-right
+  "w h" 'evil-window-left
+  "w j" 'evil-window-down
+  "w k" 'evil-window-up
+  "w l" 'evil-window-right
   ;; Move windows
-  (leader "w H") 'windmove-swap-states-left
-  (leader "w J") 'windmove-swap-states-down
-  (leader "w K") 'windmove-swap-states-up
-  (leader "w L") 'windmove-swap-states-right)
+  "w H" 'windmove-swap-states-left
+  "w J" 'windmove-swap-states-down
+  "w K" 'windmove-swap-states-up
+  "w L" 'windmove-swap-states-right)
+  ;; )
 
-;;;; --IVY----------------------------------------------------------------
+;;;; --EVIL-COLLECTION----------------------------------------------------------
+
+(use-package evil-collection
+  :after evil
+  :ensure t
+  :config
+  (evil-collection-init))
+
+;;;; --HYDRA--------------------------------------------------------------------
+
+(use-package hydra)
+
+(defhydra hydra-text-scale (:timeout 2)
+  "scale text"
+  ("j" text-scale-increase "in")
+  ("k" text-scale-decrease "out")
+  ("f" nil "finished" :exit t))
+
+(jklmn/leader-keys
+  "ts" '(hydra-text-scale/body :which-key "scale text"))
+
+;;;; --IVY----------------------------------------------------------------------
 
 (use-package swiper)
 (use-package counsel
@@ -87,23 +141,23 @@
   :bind (("C-s" . swiper)
 	 :map ivy-minibuffer-map
 	 ("TAB" . ivy-alt-done)
-	 ("C-l" . ivy-alt-done)
-	 ("C-j" . ivy-next-line)
-	 ("C-k" . ivy-previous-line)
+	 ("M-l" . ivy-alt-done)
+	 ("M-j" . ivy-next-line)
+	 ("M-k" . ivy-previous-line)
 	 :map ivy-switch-buffer-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-l" . ivy-done)
-	 ("C-d" . ivy-switch-buffer-kill)
+	 ("M-k" . ivy-previous-line)
+	 ("M-l" . ivy-done)
+	 ("M-d" . ivy-switch-buffer-kill)
 	 :map ivy-reverse-i-search-map
-	 ("C-k" . ivy-previous-line)
-	 ("C-d" . ivy-reverse-i-search-kill))
+	 ("M-k" . ivy-previous-line)
+	 ("M-d" . ivy-reverse-i-search-kill))
   :config
   (ivy-mode 1))
 
 (use-package ivy-rich
   :init (ivy-rich-mode 1))
 
-;;;; --DOOM-MODELINE------------------------------------------------------
+;;;; --DOOM-MODELINE------------------------------------------------------------
 
 (use-package all-the-icons)
 
@@ -111,31 +165,42 @@
   :ensure t
   :init (doom-modeline-mode 1))
 
-;;;; --RAINBOW-DELIMITERS-------------------------------------------------
+;;;; --RAINBOW-DELIMITERS-------------------------------------------------------
 
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
-;;;; --WHICH-KEY----------------------------------------------------------
+;;;; --WHICH-KEY----------------------------------------------------------------
 
 (use-package which-key
   :init (which-key-mode)
   :diminish which-key-mode
   :config (setq which-key-idle-delay 0.5))
 
-;;;; --F------------------------------------------------------------------
+;;;; --F------------------------------------------------------------------------
+
+;; https://github.com/rejeep/f.el
 
 (use-package f)
 
-;;;; --ORG-MODE-----------------------------------------------------------
+;;;; --ORG-MODE-----------------------------------------------------------------
 
-(use-package org)
+(general-define-key
+ :states 'normal)
 
-;;;; --VISUAL-------------------------------------------------------------
+(use-package org
+  :config (setq org-return-follows-link t))
+
+;;;; --ESUP---------------------------------------------------------------------
+
+(use-package esup
+  :config (setq esup-depth 0))
+
+;;;; --VISUAL-------------------------------------------------------------------
 
 ;; Need to find a bit better of a theme
 (use-package doom-themes
-  :init (load-theme 'doom-homage-black t))
+  :init (load-theme 'doom-badger t))
 
 ;; Set font settings
 (set-face-attribute
@@ -156,24 +221,20 @@
 (set-fringe-mode 0)
 (menu-bar-mode -1)
 
+;; Fill column
+(setq fill-column 80)
+(global-display-fill-column-indicator-mode t)
+
 ;; Turn on line-numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
 
-;; Disable line numbers for some modes
-(defvar no-line-num-modes '(org-mode-hook
-			    term-mode-hook
-			    shell-mode-hook
-			    eshell-mode-hook))
-(dolist (mode no-line-num-modes)
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-;;;; --FUNCTIONAL---------------------------------------------------------
+;;;; --FUNCTIONAL---------------------------------------------------------------
 
 ;; Move backup tilde files ("example.txt~") to a special folder
 (setq backup-directory-alist `(("." . "~/.emacs.bak")))
 
-;;;; --EMACS-GENERATED----------------------------------------------------
+;;;; --EMACS-GENERATED----------------------------------------------------------
 
 (setq custom-file "~/.emacs.d/custom.el")
 (when (file-exists-p custom-file)
