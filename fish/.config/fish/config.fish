@@ -10,3 +10,5 @@ export MANWIDTH=80
 
 # Java issues
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+export FZF_DEFAULT_COMMAND="fd --hidden --exclude '.git'"

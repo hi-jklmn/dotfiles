@@ -19,6 +19,8 @@ set mouse=a                 " allow mouse to resize splits
 set shiftwidth=4            " Set tab length to 4
 set tabstop=4               "
 set expandtab               " Insert spaces instead of tabs
+set nofoldenable            " Don't automatically fold
+set foldlevel=99
 
 filetype plugin indent on   " auto-indents based on file type
 syntax on           " turn on syntax highlights
@@ -29,10 +31,16 @@ autocmd BufWinEnter * if &filetype == 'help' | wincmd L | endif
 " Brackets ()()()()
 " can look into doing ftplugins later
 autocmd Filetype c inoremap ( ()<Esc>i
+autocmd Filetype c inoremap () ()
 autocmd Filetype c inoremap (<cr> (<cr><Esc>O
 autocmd Filetype c inoremap { {}<Esc>i
 autocmd Filetype c inoremap {<cr> {<cr>}<Esc>O
 autocmd Filetype c inoremap [ []<Esc>i
+
+augroup project
+  autocmd!
+  autocmd BufRead,BufNewFile *.h,*.c set filetype=c.doxygen
+augroup END
 
 " Use w!! to write into a file without permissions
 ca w!! w !sudo tee %

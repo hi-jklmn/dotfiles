@@ -36,6 +36,7 @@ if [ $(cat /etc/hostname) == "casper-3" ]; then
 	redshift &
 	polybar -r &
 	picom &
+    xinput set-prop "SynPS/2 Synaptics TouchPad" "libinput Tapping Enabled" 1
 fi
 
 if [ $(cat /etc/hostname) == "balthasar-2" ]; then

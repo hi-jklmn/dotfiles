@@ -15,6 +15,9 @@ nnoremap <leader>ev :exe 'edit '.stdpath('config').'/init.vim'<cr>
 nnoremap <leader>sv :exe 'source '.stdpath('config').'/init.vim'<cr>
 """ --- /OUTDATED ----------------------------------
 
+" Use tab to toggle folds
+nnoremap <tab> za
+
 " Split management
 nnoremap <leader>w- :split<cr>:wincmd j<cr>
 nnoremap <leader>w/ :vsplit<cr>:wincmd l<cr>

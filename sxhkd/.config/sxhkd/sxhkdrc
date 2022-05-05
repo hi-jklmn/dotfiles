@@ -120,11 +120,16 @@ super + brace{left,right}
 super + {grave,Tab}
 	bspc {node,desktop} -f last
 
+# open up todo.org in next unoccupied desktop
+super + o
+	bspc desktop -f next.!occupied; \
+    emacs ~/org/todo.org
+
 # focus the older or newer node in the focus history
-super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+# super + {o,i}
+# 	bspc wm -h off; \
+# 	bspc node {older,newer} -f; \
+# 	bspc wm -h on
 
 # focus or send to the given desktop
 super + {1-5}; super + {1-5}
