@@ -36,38 +36,6 @@ return require('packer').startup(function(use)
             require('which-key').setup {}
         end
     }
-    -- Treesitter
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = ':TSUpdate',
-        before = "neorg",
-        config = function() 
-            local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
-            -- Optional neorg parsers
-            parser_configs.norg_meta = {
-                install_info = {
-                    url = "https://github.com/nvim-neorg/tree-sitter-norg-meta",
-                    files = { "src/parser.c" },
-                    branch = "main"
-                },
-            }
-            parser_configs.norg_table = {
-                install_info = {
-                    url = "https://github.com/nvim-neorg/tree-sitter-norg-table",
-                    files = { "src/parser.c" },
-                    branch = "main"
-                },
-            }
-            require('nvim-treesitter.configs').setup {
-                ensure_installed = "maintained",
-                sync_install = "false",
-                highlight = { enable = true },
-            }
-
-            vim.cmd('set foldmethod=expr')
-            vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
-        end
-    }
     -- Visual yanking
     use 'machakann/vim-highlightedyank'
     -- Token matching extension
@@ -91,7 +59,7 @@ return require('packer').startup(function(use)
             }
         end
     }
-    -- Buffer-line
+    -- Buffer-line (Adds tab-like support for open buffers)
     use {
         'akinsho/bufferline.nvim',
         config = function()
@@ -115,27 +83,6 @@ return require('packer').startup(function(use)
 
             vim.cmd 'colorscheme material'
         end
-    }
-    -- Neorg
-    use {
-        "nvim-neorg/neorg",
-        config = function()
-            require('neorg').setup {
-                load = {
-                    ["core.defaults"] = {},
-                    -- Workspace manager
-                    ["core.norg.dirman"] = { config = { 
-                            workspaces = { 
-                                neorg = "~/neorg", 
-                            }}},
-                    -- Element hiding (Fancy bullet points)
-                    ["core.norg.concealer"] = {},
-                    -- Getting things done
-                    ["core.gtd.base"] = {},
-                }
-            }
-        end,
-        requires = "nvim-lua/plenary.nvim",
     }
     -- Automatically set up configuration after cloning packer.nvim
     if packer_bootstrap then
