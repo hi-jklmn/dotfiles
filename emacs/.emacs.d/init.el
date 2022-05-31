@@ -53,7 +53,10 @@
   (evil-set-initial-state 'message-buffer-mode 'normal)
   (evil-set-initial-state 'dashboard-mode 'normal))
 
-; (define-key evil-normal-state-map (kbd "SPC") nil)
+(general-define-key
+ :states 'normal
+ :keymaps 'org-mode-map
+ "RET" 'org-return)
 ; (define-key evil-visual-state-map (kbd "SPC") nil)
 ; 
 ; (evil-set-leader 'normal (kbd "SPC"))
