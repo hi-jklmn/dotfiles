@@ -20,4 +20,5 @@ bspc rule -a Emacs state=tiled
 bspc rule -a feh state=tiled
 bspc rule -a zathura state=tiled
 
-feh --bg-fill ~/Pictures/bg.jpg
+BG="~/Pictures/bg.jpg"
+test -f $BG && feh --bg-fill $BG
