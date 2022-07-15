@@ -17,6 +17,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 return require('packer').startup(function(use)
+    -- CoC
+    use {'neoclide/coc.nvim', branch = 'release'}
     -- Make packer responsible for itself
     use 'wbthomason/packer.nvim'
     -- Icons for statusline
@@ -36,6 +38,8 @@ return require('packer').startup(function(use)
             require('which-key').setup {}
         end
     }
+    -- The "missing motion" in vim
+    use 'justinmk/vim-sneak'
     -- Visual yanking
     use 'machakann/vim-highlightedyank'
     -- Token matching extension

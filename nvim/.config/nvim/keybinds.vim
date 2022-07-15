@@ -10,9 +10,9 @@ let mapleader = " "
 """ --- OUTDATED -----------------------------------
 """ easy configuration
 " edit init.vim
-nnoremap <leader>ev :exe 'edit '.stdpath('config').'/init.vim'<cr>
+nnoremap <leader>ev :exe 'edit '.stdpath('config').'/init.lua'<cr>
 " source init.vim
-nnoremap <leader>sv :exe 'source '.stdpath('config').'/init.vim'<cr>
+nnoremap <leader>sv :exe 'source '.stdpath('config').'/init.lua'<cr>
 """ --- /OUTDATED ----------------------------------
 
 " Use tab to toggle folds
@@ -80,4 +80,36 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 " CHADTree
 nnoremap <leader>ff :CHADopen<cr>
 nnoremap <leader>f? :CHADhelp<cr>
+
+" CoC
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+            \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ CheckBackspace() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call ShowDocumentation()<CR>
+
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
 
