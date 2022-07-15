@@ -69,3 +69,6 @@ quotes:
 
   - origin: "Matt Christman, Doe6: Women Be Croppin\'"
     quote:  "That's why in the 1800s [anarchists] couldn't stop shooting politicians: Because it felt good!"
+
+  - origin: "Robert Virding's only comment in a very long erlang module"
+    quote:  "%% And now for the tricky bit"
