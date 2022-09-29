@@ -1,2 +1,4 @@
 #!/bin/bash
-timer.sh 25m "Go take a break"
+TASK=${1:-Pomodoro}
+termdown 20m -T $TASK
+espeak "${TASK:-Pomodoro} done" 2> /dev/null; noti -t "${TASK:-Pomodoro} done"

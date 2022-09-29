@@ -15,22 +15,23 @@ super + shift + n
 	xkb-switch -n
 
 # terminal emulator
+# Checks if currently focused monitor is 1080p, and if so 
+# decreases font size to 10.0
 super + Return
-	kitty
+	MIN_DIM=$(bspc wm -d |\
+        jq -r ".monitors[]"\
+        "| select(.name == \"$(bspc query --names -M -m)\") "\
+        "| .rectangle | [.width, .height] | min") \
+    [ $MIN_DIM -eq 1080 ] && kitty -o font_size=9.0 || kitty
 
 super + shift + Return
 	kitty nvim
 
 # program launcher
 super + @space
-    rofi -show run
+    rofi -m "-1" -show run
 
 # # # # # Screen brightness # # # # #
-{F11, F12}
-	xbacklight {-dec,-inc} 10
-shift + {F11, F12}
-	xbacklight {-dec,-inc} 1
-
 super + {Left, Right}
 	xbacklight {-dec,-inc} 5
 
@@ -47,10 +48,6 @@ super + shift + alt + {Up, Down}
 # Mute
 @F1
 	amixer set Master toggle
-{F2, F3}
-	pactl set-sink-volume @DEFAULT_SINK@ {-,+}5%
-shift + {F2,F3}
- 	amixer set Master 5%{-,+}
 super + {Up, Down}
 	pactl set-sink-volume @DEFAULT_SINK@ {+,-}5%
 
@@ -101,8 +98,11 @@ super + ctrl + {m,x,y,z}
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+super + shift + {h,j,k,l}
+	bspc node -s {west,south,north,east} --follow
 
 # focus the node for the given path jump
 super + {p,b,comma,period}

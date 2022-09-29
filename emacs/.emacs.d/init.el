@@ -208,11 +208,11 @@
 ;; Set font settings
 (set-face-attribute
  'default nil
- :font "Fira Code"
+ :font "Jetbrains Mono"
  :height (cond
  	  ((string= system-name "balthasar-2") 100)
  	  ((string= system-name "casper-3") 110)
- 	  (t 120)))
+ 	  (t 80)))
 
 ;; Remove startup message
 (setq inhibit-startup-message t)
@@ -231,6 +231,7 @@
 ;; Turn on line-numbers
 (column-number-mode)
 (global-display-line-numbers-mode t)
+(setq display-line-numbers 'relative)
 
 ;;;; --FUNCTIONAL---------------------------------------------------------------
 
@@ -242,3 +243,7 @@
 (setq custom-file "~/.emacs.d/custom.el")
 (when (file-exists-p custom-file)
   (load custom-file))
+
+(find-file "~/notes/daily.org")
+
+;(add-to-list 'org-file-apps '("\\.pdf" . "zathura %s"))

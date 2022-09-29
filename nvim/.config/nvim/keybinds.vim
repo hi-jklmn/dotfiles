@@ -15,9 +15,6 @@ nnoremap <leader>ev :exe 'edit '.stdpath('config').'/init.lua'<cr>
 nnoremap <leader>sv :exe 'source '.stdpath('config').'/init.lua'<cr>
 """ --- /OUTDATED ----------------------------------
 
-" Use tab to toggle folds
-nnoremap <tab> za
-
 " Split management
 nnoremap <leader>w- :split<cr>:wincmd j<cr>
 nnoremap <leader>w/ :vsplit<cr>:wincmd l<cr>
@@ -81,20 +78,28 @@ vnoremap <A-k> :m '<-2<CR>gv=gv
 nnoremap <leader>ff :CHADopen<cr>
 nnoremap <leader>f? :CHADhelp<cr>
 
+" Vimtex
+nmap <leader>ll <Plug>(vimtex-compile)
+nmap <leader>li <Plug>(vimtex-compile-output)
+
 " CoC
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
+inoremap <silent><expr> <cr> coc#pum#visible() ? coc#_select_confirm()
             \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ CheckBackspace() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1):
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+let g:coc_snippet_next = '<tab>'
+
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
